@@ -12,8 +12,20 @@ const google = window.google;
         position:  { lat: 40.7446790, lng: -73.9485420 },
         title: 'Uluru (Ayers Rock)'
       }))
+
+    //  if (this.props.bounce) {
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
+   //   }
     }
    
+    componentDidUpdate() {
+      if (this.props.bounce) {
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
+      } else {
+        marker.setAnimation(null);
+      }
+
+    }
     
     render() {
    

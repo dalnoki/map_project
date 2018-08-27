@@ -25,7 +25,7 @@ const MapContext = React.createContext(null);
     render() {
       return (
         <div>
-          <div ref="map" id="map">
+          <div ref="map" id="map" role="application">
           </div>
           <MapContext.Provider value={this.state.map}>
             {this.props.children}
@@ -44,7 +44,7 @@ class Marker extends Component {
         });
 
          this.infowindow = new google.maps.InfoWindow({
-          content: this.refs.popup
+          content: this.refs.popup,
         });
     
         this.marker.addListener('click', () => {
@@ -52,7 +52,14 @@ class Marker extends Component {
         });
       }
         this.marker.setMap(this.props.map)
+
+        if (this.props.bounce) {
+          this.marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
     }
+
+      
+
 
   componentWillUnmount() {
         this.marker.setMap(null) 
@@ -63,8 +70,18 @@ class Marker extends Component {
   componentDidUpdate() {
     this.marker.setMap(this.props.map)
 
+    if (this.props.bounce) {
+      this.marker.setAnimation(google.maps.Animation.BOUNCE);
+      this.infowindow.open(this.props.map, this.marker)
+    } else {
+      this.marker.setAnimation(null);
+      this.infowindow.close()
+    }
 
-}
+  }
+
+
+
    
     
   render() {return (<div ref="popup">{this.props.children}</div>) }
