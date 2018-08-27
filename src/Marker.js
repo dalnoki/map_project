@@ -10,7 +10,7 @@ const google = window.google;
 
       this.marker = new google.maps.Marker( (this.refs.marker, {
         position:  { lat: 40.7446790, lng: -73.9485420 },
-        title: 'Uluru (Ayers Rock)'
+       
       }))
 
     //  if (this.props.bounce) {

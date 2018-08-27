@@ -7,6 +7,7 @@ const CLIENT_ID = "0JDWPB1NCC32MBSESDDVVHE1SDYDAQ551EPO0HQGU5FPO10T";
 const CLIENT_SECRET = "E5X4B0KWBOBEC5KR1IJHSG1JXRHB5FKSE5HV0WIIKAZEQ32U";
 
 class App extends Component {
+  // list of locations
   state = {
     locations : [
       {
@@ -38,7 +39,7 @@ class App extends Component {
 }
 
 }
-
+// foursquare api request
  fetchEntry = async  (entry) => {
   const {position : {lat, lng }} = entry
   const response =  await fetch(`https://api.foursquare.com/v2/venues/explore?cat=food&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20180323&limit=1&ll=${lat},${lng}`)
@@ -55,7 +56,10 @@ class App extends Component {
       <div className="App">
         < Sidebar locations={this.state.locations} onChange={(e) => this.setState({ filter : e.target.value.toLowerCase() })} filter={this.state.filter} selected={this.state.selected} onSelect={(loc) => this.setState({ selected : loc}) }/> 
         < Map>
-        {this.state.locations.filter((loc) => loc.lcname.indexOf(this.state.filter) !== -1 ).map((loc) => <MapMarker position={loc.position } title={loc.name} key={loc.name} bounce={ loc === this.state.selected }>
+        {this.state.locations.filter((loc) => loc.lcname.indexOf(this.state.filter) !== -1 ).map((loc) => 
+        // set up marker
+        <MapMarker position={loc.position } title={loc.name} key={loc.name} bounce={ loc === this.state.selected }>
+       
         <p>{loc.name}</p>
         <p>{(loc.categories || [] ).join(", ")}</p>
         <p>{loc.summary}</p>
